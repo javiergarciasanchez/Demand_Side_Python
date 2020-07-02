@@ -2,30 +2,30 @@ from Drawings import *
 
 Params.discountQ = 1
 
-fh = Firm(1, 30, None)
-ph = opt_price(fh)
-fh.p = ph
+fh = Firm(1, 30, math.inf)
+fh.p = opt_price(fh)
 
 # fd = None
 
-fd = Firm(1, 10, None)
-pd = opt_price(fd, fh)
-fd.p = pd
+fd = Firm(15, 20, None)
+fd.p = opt_price(fd, fh)
 
 # recalculate opt
-ph = opt_price(fh, fd)
-fh.p = ph
+fh.p = opt_price(fh, fd)
 
-p_range = np.arange(0.0, 40.0, 0.1)
-q_range = np.arange(0.001, 50, 0.1)
+p_range = np.arange(0.0, 60.0, 0.1)
+q_range = np.arange(0.001, 40, 0.1)
 
 var = "profit"
 fig_h, ax_h = plot_vector_func(p_range, q_range, fh, fd, var=var, title=var, color="blue")
-ax_h.scatter(fh.p, fh.q, getattr(calculate_result(fh, fd), var), c="red", s=30)
+ax_h.scatter(fh.p, fh.q, getattr(calculate_result(fh, fd), var), c="black", s=30)
 ax_h.view_init(azim=-119, elev=46)
 
+# 2D profit
+plotPriceVectorFunc(p_range, fh.q, fh, fd, var="profit")
+
 # add optimum profit line
-q_range = np.arange(0.001, 35, 0.1)
+q_range = np.arange(0.001, 40, 0.1)
 v_opt_price = np.vectorize(opt_price_for_draw, otypes=[np.float64])
 v_opt = v_opt_price(q_range, fh, fd)
 
@@ -44,14 +44,18 @@ ax_h_q.view_init(azim=-119, elev=46)
 # fd
 #####
 var = "profit"
-p_range = np.arange(0, 100, 0.5)
-q_range = np.arange(0.001, 17, 0.5)
+p_range = np.arange(0, 60, 0.1)
+q_range = np.arange(0.001, 40, 0.1)
 fig_d, ax_d = plot_vector_func(p_range, q_range, fd, fh, var=var, title=var, color="blue")
 ax_d.scatter(fd.p, fd.q, getattr(calculate_result(fd, fh), var), c="red", s=30)
 ax_d.view_init(azim=-119, elev=46)
 
+# 2D profit
+plotPriceVectorFunc(p_range, fd.q, fd, fh, var="profit")
+
+
 # add optimum profit line
-q_range = np.arange(0.001, 17, 0.5)
+q_range = np.arange(0.001, 40, 0.1)
 v_opt_price = np.vectorize(opt_price_for_draw, otypes=[np.float64])
 v_opt = v_opt_price(q_range, fd, fh)
 

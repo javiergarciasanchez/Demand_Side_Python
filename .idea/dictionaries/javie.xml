@@ -2,9 +2,11 @@
   <dictionary name="javie">
     <words>
       <w>gini</w>
+      <w>iters</w>
       <w>plambda</w>
       <w>quant</w>
       <w>retval</w>
+      <w>xatol</w>
     </words>
   </dictionary>
 </component>

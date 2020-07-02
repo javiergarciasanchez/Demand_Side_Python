@@ -3,6 +3,8 @@ from Firms import *
 import matplotlib.pyplot as plt
 import numpy as np
 import itertools
+
+
 # import mpl_toolkits.mplot3d
 
 
@@ -21,10 +23,22 @@ def opt_price_for_draw(q, f: Firm, comp: Firm = None):
     return opt_price(f_copy, comp)
 
 
+def add_plot_vector_func(fig, n_rows, n_cols, i, p_range, q_range, f: Firm, comp: Firm = None, var="profit", title="",
+                         p_lines=None, q_lines=None, color=None):
+
+    return plot_vector_func(p_range, q_range, f, comp, var, title, p_lines, q_lines, color, fig, n_rows, n_cols, i)
+
+
 def plot_vector_func(p_range, q_range, f: Firm, comp: Firm = None, var="profit", title="",
-                     p_lines=None, q_lines=None, color=None):
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
+                     p_lines=None, q_lines=None, color=None, fig=None, n_rows=None, n_cols=None, i=None):
+
+    if fig is None:
+        fig = plt.figure()
+        n_rows = 1
+        n_cols = 1
+        i = 1
+
+    ax = fig.add_subplot(n_rows, n_cols, i, projection='3d')
 
     if comp is None:
         comp_label = ""
@@ -78,7 +92,6 @@ def plotPriceVectorFunc(p_range, q, f, comp=None, var="profit", title=None):
 
 
 def plotQualityVectorFunc(p, q_range, f, comp=None, var="profit", title=""):
-
     fig, ax = plt.subplots()
 
     if comp is None:
